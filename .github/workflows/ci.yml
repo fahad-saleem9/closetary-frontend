@@ -1,0 +1,34 @@
+name: CI/CD Pipeline
+
+# Trigger on push to main branch
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+    # Step 1: Checkout code
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    # Step 2: Set up Docker
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v2
+
+    # Step 3: Build Docker image
+    - name: Build Docker image
+      run: docker build -t my-app:latest .
+
+    # Step 4: Run tests
+    - name: Run tests
+      run: |
+        # Node.js example
+        npm install
+        npm test
+        # Python example
+        # pip install -r requirements.txt
+        # pytest
